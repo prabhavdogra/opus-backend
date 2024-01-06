@@ -1,8 +1,8 @@
 package lexer
 
 import (
-	"opus/token"
-	"opus/utils.go"
+	"opus-backend/token"
+	"opus-backend/utils.go"
 )
 
 func New(input string) *Lexer {

@@ -2,7 +2,7 @@ package main
 
 import (
 	"fmt"
-	"opus/repl"
+	"opus-backend/repl"
 	"os"
 )
 

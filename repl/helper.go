@@ -4,8 +4,8 @@ import (
 	"bufio"
 	"fmt"
 	"io"
-	"opus/lexer"
-	"opus/token"
+	"opus-backend/lexer"
+	"opus-backend/token"
 )
 
 const PROMPT = "opus >> "

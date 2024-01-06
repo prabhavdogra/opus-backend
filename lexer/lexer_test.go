@@ -3,7 +3,7 @@ package lexer
 import (
 	"testing"
 
-	"opus/token"
+	"opus-backend/token"
 )
 
 func TestNextToken(t *testing.T) {
