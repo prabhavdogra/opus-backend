@@ -34,9 +34,9 @@ func TestLetStatement(t *testing.T) {
 		{"foobar"},
 	}
 
-	for i, tt := range tests {
+	for i, test := range tests {
 		stmt := program.Statements[i]
-		if !testLetStatement(t, stmt, tt.expectedIdentifier) {
+		if !testLetStatement(t, stmt, test.expectedIdentifier) {
 			return
 		}
 	}
