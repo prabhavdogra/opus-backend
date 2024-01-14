@@ -27,6 +27,17 @@ type Identifier struct {
 	Value string
 }
 
+type IntegerLiteral struct {
+	Token token.Token // Token: token.INT
+	Value int64
+}
+
+type PrefixExpression struct {
+	Token      token.Token // Token: "!" / "-"
+	Operator   string
+	Expression Expression
+}
+
 type LetStatement struct {
 	Token token.Token // Token: token.LET
 	Name  *Identifier
