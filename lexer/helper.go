@@ -2,7 +2,6 @@ package lexer
 
 import (
 	"opus-backend/token"
-	"opus-backend/utils.go"
 )
 
 func New(input string) *Lexer {
@@ -61,6 +60,8 @@ func (l *Lexer) NextToken() token.Token {
 		tok = newToken(token.GREATERTHAN, l.ch)
 	case ';':
 		tok = newToken(token.SEMICOLON, l.ch)
+	case ':':
+		tok = newToken(token.COLON, l.ch)
 	case ',':
 		tok = newToken(token.COMMA, l.ch)
 	case '{':
@@ -71,14 +72,21 @@ func (l *Lexer) NextToken() token.Token {
 		tok = newToken(token.LPAREN, l.ch)
 	case ')':
 		tok = newToken(token.RPAREN, l.ch)
+	case '"':
+		tok.Type = token.STRING
+		tok.Literal = l.readString()
+	case '[':
+		tok = newToken(token.LBRACKET, l.ch)
+	case ']':
+		tok = newToken(token.RBRACKET, l.ch)
 	case 0:
 		tok.Literal = ""
 		tok.Type = token.EOF
 	default:
-		if utils.IsLetter(l.ch) {
+		if IsLetter(l.ch) {
 			tok = parseStringIdentifierToken(l)
 			return tok
-		} else if utils.IsDigit(l.ch) {
+		} else if IsDigit(l.ch) {
 			tok = parseDigitIdentifierToken(l)
 			return tok
 		} else {
@@ -95,6 +103,14 @@ func (l *Lexer) peekNextChar() byte {
 	} else {
 		return l.input[l.readIndex]
 	}
+}
+
+func IsLetter(ch byte) bool {
+	return 'a' <= ch && ch <= 'z' || 'A' <= ch && ch <= 'Z' || ch == '_'
+}
+
+func IsDigit(ch byte) bool {
+	return '0' <= ch && ch <= '9'
 }
 
 func parseStringIdentifierToken(l *Lexer) token.Token {
@@ -119,7 +135,7 @@ func (l *Lexer) skipWhitespaces() {
 
 func (l *Lexer) readIdentifier() string {
 	startIndex := l.index
-	for utils.IsLetter(l.ch) {
+	for IsLetter(l.ch) {
 		l.readChar()
 	}
 	return l.input[startIndex:l.index]
@@ -127,10 +143,21 @@ func (l *Lexer) readIdentifier() string {
 
 func (l *Lexer) readNumber() string {
 	index := l.index
-	for utils.IsDigit(l.ch) {
+	for IsDigit(l.ch) {
 		l.readChar()
 	}
 	return l.input[index:l.index]
+}
+
+func (l *Lexer) readString() string {
+	position := l.index + 1
+	for {
+		l.readChar()
+		if l.ch == '"' || l.ch == 0 {
+			break
+		}
+	}
+	return l.input[position:l.index]
 }
 
 func newToken(tokenType token.TokenType, ch byte) token.Token {

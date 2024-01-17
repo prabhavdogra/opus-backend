@@ -38,6 +38,13 @@ type PrefixExpression struct {
 	Expression Expression
 }
 
+type InfixExpression struct {
+	Token           token.Token // Token: "*", "/", "+", "-" ..
+	Operator        string
+	RightExpression Expression
+	LeftExpression  Expression
+}
+
 type LetStatement struct {
 	Token token.Token // Token: token.LET
 	Name  *Identifier
@@ -52,4 +59,54 @@ type ExpressionStatement struct {
 type ReturnStatement struct {
 	Token       token.Token // Token: token.RETURN
 	ReturnValue Expression
+}
+
+type BlockStatement struct {
+	Token      token.Token // Token: token.LBRACE {
+	Statements []Statement
+}
+
+type CallExpression struct {
+	Token     token.Token // The '(' token
+	Function  Expression  // Identifier or FunctionLiteral
+	Arguments []Expression
+}
+
+type StringLiteral struct {
+	Token token.Token
+	Value string
+}
+
+type ArrayLiteral struct {
+	Token    token.Token // the '[' token
+	Elements []Expression
+}
+
+type IndexExpression struct {
+	Token token.Token // The [ token
+	Left  Expression
+	Index Expression
+}
+
+type HashLiteral struct {
+	Token token.Token // the '{' token
+	Pairs map[Expression]Expression
+}
+
+type Boolean struct {
+	Token token.Token
+	Value bool
+}
+
+type IfExpression struct {
+	Token       token.Token // The 'if' token
+	Condition   Expression
+	Consequence *BlockStatement
+	Alternative *BlockStatement
+}
+
+type FunctionLiteral struct {
+	Token      token.Token // The 'fn' token
+	Parameters []*Identifier
+	Body       *BlockStatement
 }

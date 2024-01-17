@@ -7,8 +7,9 @@ const (
 	EOF     = "EOF"
 
 	// Identifiers + literals
-	IDENT = "IDENT" // variables
-	INT   = "INT"   // Constant variable assignment values
+	IDENT  = "IDENT" // variables
+	INT    = "INT"   // Constant variable assignment values
+	STRING = "STRING"
 
 	// Operators
 	ASSIGN   = "="
@@ -27,11 +28,14 @@ const (
 	// Delimiters
 	COMMA     = ","
 	SEMICOLON = ";"
+	COLON     = ":"
 
-	LPAREN = "("
-	RPAREN = ")"
-	LBRACE = "{"
-	RBRACE = "}"
+	LPAREN   = "("
+	RPAREN   = ")"
+	LBRACE   = "{"
+	RBRACE   = "}"
+	LBRACKET = "["
+	RBRACKET = "]"
 
 	// Keywords
 	FUNCTION = "FUNCTION"
